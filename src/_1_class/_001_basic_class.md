@@ -1,3 +1,10 @@
+# content
+- [Class](#class)
+- [Constructor function](#constructor)
+- [Destructor function](#destructor)
+
+<hr>
+
 # Class
 - A class is an extension of a data structure. It can contain variables, data structures, and functions.  
 - Syntax:  
@@ -34,4 +41,26 @@ class class_name {
 - Sometime, we use the `scope operator '::'` to define content for function declared in class by syntax:
   ```Cpp
   int example_class::function_1() { /*content*/}
+  ```
+<hr>
+
+# Constructor
+- To avoid undefined results, variables, structures in the class can be initialized to values ​​before they are used.  
+- This `constructor` function is declared just like a regular member function, but with a name that matches the class name and without any return type; not even void.  
+- [Example](_001_basic_class.cpp)  
+<hr>
+
+# Destructor
+- A destructor is a special function automatically called when an object is destroyed.  
+- It is used to release resources (e.g., memory, file handles) acquired by the object.  
+- Name: `~class_name()` (no return type, no arguments).  
+- Only one destructor per class.  
+- Syntax:  
+  ```cpp
+  class class_name {
+  public:
+      ~class_name() {
+          // Cleanup code
+      }
+  };
   ```
