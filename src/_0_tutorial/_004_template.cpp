@@ -1,8 +1,8 @@
 /*
 - using: bash or anothers terminal support
 - go to: src/_0_tutorial
-- build command: g++ -std=c++0x _004_template.cpp -o ./build/_004_template
-- run command: ./build/_004_template
+- build command: g++ -std=c++0x _004_template.cpp -o ./build/_004_template.out
+- run command: ./build/_004_template.out
 */
 #include<stdio.h>
 
