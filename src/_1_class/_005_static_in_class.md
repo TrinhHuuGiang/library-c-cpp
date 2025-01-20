@@ -1,0 +1,1 @@
+- [see more 'static member'](https://cplusplus.com/doc/tutorial/templates/)
