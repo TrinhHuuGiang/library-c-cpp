@@ -1,7 +1,7 @@
 # content
 - [friend function](#friend-function)
 - [friend class](#friend-class)
-- [inheritance class]
+- [inheritance class](#inheritance-class)
 <hr>
 
 # Friend function
