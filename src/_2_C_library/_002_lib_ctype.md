@@ -1,8 +1,3 @@
-# content
-- [library cctype / ctype.h](#library-cctype-or-ctypeh)
-
-<hr>
-
 # Library cctype or ctype.h
 - Function:  
 1. Classification set functions:  
