@@ -1,5 +1,5 @@
-// add execute mode: chmod +x ./_003_lib_stdio_tempfile.sh
-// run script: ./_003_lib_stdio_tempfile.sh
+// add execute mode: chmod +x ./_003_1_0_file_handling.sh
+// run script: ./_003_1_0_file_handling.sh
 
 #include <stdio.h>
 #include <iostream>
@@ -31,6 +31,7 @@ int main(int argc, char* argv[])
     }
     fprintf(temp_ptr,"Hello everyone");
 
+    // print content were written into file
     rewind(temp_ptr);
     fscanf(temp_ptr,"%[^\n]",tmp_str);
 
@@ -44,5 +45,4 @@ int main(int argc, char* argv[])
     fflush(stdin);
     getchar();
     return 0;
-
 }
