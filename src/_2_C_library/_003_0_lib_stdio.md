@@ -35,6 +35,26 @@
 <br>
 
 2. Stream handling
+- fopen  
+  - perpose: with the 'file name' and 'mode' we create a stream can interact with file  
+  - syntax: `FILE * fopen ( const char * filename, const char * mode );`  
+  - mode: https://cplusplus.com/reference/cstdio/fopen/  
+  - return: NULL if failed, FILE pointer if succes.  
+- fclose  
+  - perpose: close stream after done work with file  
+  - syntax: `int fclose ( FILE * stream );`  
+  - return: 0 if success, EOF(-1) if failed.  
+
+- freopen  
+
+- setbuf  
+- setvbuf  
+
+- fflush  
+  - perpose:  
+  - syntax: `int fflush ( FILE * stream );`
+
+
 3. Format I/O
 4. I/O with stream
 5. I/O block data
