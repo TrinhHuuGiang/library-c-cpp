@@ -35,6 +35,8 @@
 <br>
 
 2. Stream handling
+- **Overview**:
+  - 
 - fopen  
   - perpose: with the 'file name' and 'mode' we create a stream can interact with file  
   - syntax: `FILE * fopen ( const char * filename, const char * mode );`  
@@ -44,11 +46,21 @@
   - perpose: close stream after done work with file  
   - syntax: `int fclose ( FILE * stream );`  
   - return: 0 if success, EOF(-1) if failed.  
-
 - freopen  
-
-- setbuf  
+  - perpose: Reuses stream to either open the file specified by filename or to change its access mode.  
+  - syntax: `FILE * freopen ( const char * filename, const char * mode, FILE * stream );`  
+  - return: NULL if failed, FILE pointer if succes.  
 - setvbuf  
+  - perpose: Specifies an array `buffer` for stream. The function allows to specify the mode and size of the buffer (in bytes).  
+  - This function should be called once the stream has been associated with an open file, but before any input or output operation is performed with it.  
+  - syntex: `int setvbuf ( FILE * stream, char * buffer, int mode, size_t size );`  
+  - mode: Specifies a mode for file buffering. Three special macro constants (_IOFBF, _IOLBF and _IONBF) are defined. Read here: https://cplusplus.com/reference/cstdio/setvbuf/  
+  - return: 0 if succes, !0 if failed
+
+- setbuf
+  - perpose: 
+  - syntax: `void setbuf ( FILE * stream, char * buffer );`   
+
 
 - fflush  
   - perpose:  
