@@ -9,30 +9,23 @@
 #include "_1_temp_file.h"
 #include "_2_file_io.h"
 
-// standart libs
+#define MAX_LINK_LENGTH (256)
+#define MAX_LINK_LENGTH_s "255"
 
+// standart libs
+#include "stdio.h"
+#include "string.h"
+#include "stdlib.h"
 
 // state machine index in function pointer array
 typedef enum
 {
-    STATE_INIT = 0,                   //initial state with link was inputted to text file
-    STATE_REINPUT_LINK,               //re-input state when user input wrong path
+    STATE_REINPUT_LINK,               //input and re-input state when user input wrong path
     STATE_COUNT_ASCII,                //count number ASCII are existing in text file
     STATE_CHOOSE_CHARACTER_TO_DELETE, //user choose a ASCII character to delete
     STATE_DELETE_CHARACTER,           //delete ASCII charater was chosen
     STATE_END                         //end driver
 } State_next;
-
-/**
- * @brief State Function Pointer
- * 
- * Function pointer for each state in the state machine.
- * 
- * @param None
- * @return State_next The next state index
- */
-typedef State_next (*sm_fp)();
-
 
 /***************************************
 * API
@@ -41,7 +34,8 @@ typedef State_next (*sm_fp)();
  * @brief Remove some ASCII character in text file
  * 
  * @param input_link The link (string) to the text file want delete ASCII character
+ * @return 0 if no problem, 1 if unexpected
  */
-void driver_remove_ASCII(char* input_link);
+int driver_remove_ASCII(char* input_link);
 
 #endif /* _MAIN_STATE_H_ */
