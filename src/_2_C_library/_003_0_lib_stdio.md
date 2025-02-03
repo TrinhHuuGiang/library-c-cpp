@@ -53,7 +53,7 @@
 - setvbuf  
   - perpose: Specifies an array `buffer` for stream. The function allows to specify the mode and size of the buffer (in bytes).  
   - This function should be called once the stream has been associated with an open file, but before any input or output operation is performed with it.  
-  - syntex: `int setvbuf ( FILE * stream, char * buffer, int mode, size_t size );`  
+  - syntax: `int setvbuf ( FILE * stream, char * buffer, int mode, size_t size );`  
   - mode: Specifies a mode for file buffering. Three special macro constants (_IOFBF, _IOLBF and _IONBF) are defined. Read here: https://cplusplus.com/reference/cstdio/setvbuf/  
   - return: 0 if succes, !0 if failed
 
@@ -63,8 +63,19 @@
 
 
 - fflush  
-  - perpose:  
-  - syntax: `int fflush ( FILE * stream );`
+  - perpose: Only using it to flush out stream. shouldn't using fflush(stdin), it may do something unexpected, then 'scanf' can wrong process.  
+  - syntax: `int fflush ( FILE * ostream );`
+  - with 'stdin' to delete \n: using
+  ``` Cpp
+  // to input string
+  scanf("%[\n]%*c");
+
+  // to input a character then 'fgetc' to clear '\n'
+  // but you should handle input case '\n' because 'fgetc' can stop if stdin empty, it will not return EOF
+  getchar();
+
+  // other case we use 'fgetc' to clear '\n' after input
+  ```
 
 
 3. Format I/O

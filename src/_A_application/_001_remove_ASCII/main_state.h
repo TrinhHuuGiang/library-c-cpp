@@ -12,10 +12,16 @@
 #define MAX_LINK_LENGTH (256)
 #define MAX_LINK_LENGTH_s "255"
 
+#define STANDART_ASCII (128)
+#define FULL_ASCII     (256)
+#define USING_ASCII    FULL_ASCII
+
 // standart libs
-#include "stdio.h"
-#include "string.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
 
 // state machine index in function pointer array
 typedef enum
