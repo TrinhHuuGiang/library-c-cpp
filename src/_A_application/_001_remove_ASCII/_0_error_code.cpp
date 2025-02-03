@@ -15,7 +15,7 @@ Variable
 Code
 ***************************************/
 // print with separate line then input
-void print_something_then_input(char* str_print)
+void print_something_then_input(const char* str_print)
 {
     fprintf(stderr, "\n");
     for(int i = 0; i<20;i++)
@@ -23,7 +23,8 @@ void print_something_then_input(char* str_print)
     fprintf(stderr, "\n%s\n->" ,str_print);
 }
 
-int input_string_dynamic_len(char* size, char* input_str)
+// input long string limited length
+int input_string_dynamic_len(const char* size, char* input_str)
 {
     char* template_scanf = (char*)calloc(strlen(size)+10,sizeof(char));
     if(template_scanf == NULL)
@@ -37,8 +38,6 @@ int input_string_dynamic_len(char* size, char* input_str)
     strcat(template_scanf, size);//size
     strcat(template_scanf, "[^\n]%*c");//8 -> 10 (+ 1 for null)
 
-    fprintf(stderr,"\n[%s]\n", template_scanf);
-
     // end
     scanf(template_scanf, input_str);
     free(template_scanf);
@@ -46,28 +45,40 @@ int input_string_dynamic_len(char* size, char* input_str)
     return 0;
 }
 
+// temp file log
 int log_err_info(ret_temp_file return_code)
 {
-    // switch (return_code)
-    // {
-    //     case constant expression:
-    //         /* code */
-    //         break;
+    switch (return_code)
+    {
+        case tempfile_FAILED_TO_CREATE:
+        case tempfile_FAILED_TO_OPEN:
+        case tempfile_FAILED_TO_RENAME:
+        case tempfile_FAILED_TO_REMOVE:
+
+            perror("[ERR temp file]");
+            fprintf(stderr,"[%d]\n", return_code);
+            return 1;
         
-    //     default:
-    //         break;
-    // }
-    return 0;
+        case tempfile_OK:
+            return 0;
+
+        default:
+            perror("[ERR unexpected]");
+            return 1;
+    }
 }
 
+// io file log
 int log_err_info(ret_file_io return_code)
 {
     switch (return_code)
     {
         case iofile_FAILED_TO_CLOSE:
         case iofile_FAILED_TO_OPEN:
+        case iofile_FAILED_ALLOC_BUFFER:
 
             perror("[ERR file io]");
+            fprintf(stderr,"[%d]\n", return_code);
             return 1;
         
         case iofile_OK:

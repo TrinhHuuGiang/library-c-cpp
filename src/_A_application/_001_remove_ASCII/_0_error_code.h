@@ -9,14 +9,19 @@
 
 typedef enum 
 {
-    tempfile_OK
+    tempfile_OK,
+    tempfile_FAILED_TO_CREATE,
+    tempfile_FAILED_TO_OPEN,
+    tempfile_FAILED_TO_RENAME,
+    tempfile_FAILED_TO_REMOVE
 } ret_temp_file;
 
 typedef enum
 {
     iofile_OK,
     iofile_FAILED_TO_CLOSE,
-    iofile_FAILED_TO_OPEN
+    iofile_FAILED_TO_OPEN,
+    iofile_FAILED_ALLOC_BUFFER
 } ret_file_io;
 
 /***************************************
@@ -26,7 +31,7 @@ typedef enum
 /**
  * @brief print with separate line then input
  */
-void print_something_then_input(char* str_print);
+void print_something_then_input(const char* str_print);
 
 /** 
  * @brief input string with max size identified
@@ -35,7 +40,7 @@ void print_something_then_input(char* str_print);
  * @param input_str Input string
  * @return 0 if success, 1 if failed
  */
-int input_string_dynamic_len(char* size, char* input_str);
+int input_string_dynamic_len(const char* size, char* input_str);
 
 /**
  * @brief log temp file error details

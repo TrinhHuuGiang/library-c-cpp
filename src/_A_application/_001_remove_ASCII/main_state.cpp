@@ -41,7 +41,9 @@ Variable
 static State_next s_state_next = STATE_REINPUT_LINK;
 
 static char* s_input_link = NULL; 
-static char* s_temp_link = NULL;  
+static char* s_temp_link = NULL;
+
+static int ASCII_chosen = 0;
 
 /***************************************
 Code
@@ -138,12 +140,12 @@ static State_next Count_ASCII_character()
             if(c<USING_ASCII)
             {
                 ASCII_count_table[c] ++;
-                c = fgetc(file_ptr);
             }
             else
             {
-                fprintf(stderr,"[WARN overflow] - %s, %d", __FILE__, __LINE__);
+                fprintf(stderr,"[WARN overflow] - %s, %d\n", __FILE__, __LINE__);
             }
+            c = fgetc(file_ptr);
         }
     }
 
@@ -231,48 +233,48 @@ static State_next Count_ASCII_character()
 // Choose an ASCII
 static State_next Choose_ASCII_to_delete()
 {
-    int c;
-
     // user input 0 -> max ASCII character
     // check, re-input untill ok
     do
     {
         print_something_then_input("Input your ASCII want to delete:");
         fprintf(stderr, "[0-%d]", USING_ASCII-1);
-        c = getchar();
-    } while (c < 0 || c >= USING_ASCII);
-    if((char)c != '\n')
-    { fgetc(stdin); }
-
-    // ask sure -> next state or ask continue -> replay count state or end state
-    do
-    {
-        print_something_then_input("Are you sure detele? (y/n)");
-        c = getchar();
-    } while (c != 'y' && c != 'Y' && c != 'N' && c != 'n');
+        scanf("%d", &ASCII_chosen);
+    } while (ASCII_chosen < 0 || ASCII_chosen >= USING_ASCII);
     fgetc(stdin);
 
-    // if not want delete
-    if(c == 'N' || c == 'n')
+    // ask sure -> next state or ask continue -> replay count state or end state
     {
-        // continue ?
+        int c;
         do
         {
-            print_something_then_input("Continue delete other ASCII? (y/n)");
+            print_something_then_input("Are you sure detele? (y/n)");
             c = getchar();
         } while (c != 'y' && c != 'Y' && c != 'N' && c != 'n');
         fgetc(stdin);
 
-        // end
+        // if not want delete
         if(c == 'N' || c == 'n')
         {
-            return STATE_END;
+            // continue ?
+            do
+            {
+                print_something_then_input("Continue delete other ASCII? (y/n)");
+                c = getchar();
+            } while (c != 'y' && c != 'Y' && c != 'N' && c != 'n');
+            fgetc(stdin);
+
+            // end
+            if(c == 'N' || c == 'n')
+            {
+                return STATE_END;
+            }
+            
+            // Delete other ASCII
+            return STATE_COUNT_ASCII;
         }
-        
-        // Delete other ASCII
-        return STATE_COUNT_ASCII;
     }
-    
+
     // next delete state
     return STATE_DELETE_CHARACTER;
 }
@@ -280,9 +282,146 @@ static State_next Choose_ASCII_to_delete()
 // Delete the ASCII was chosen
 static State_next Delete_ASCII_chosen()
 {
+    FILE* input_fp = NULL;
+    FILE* temp_fp = NULL;
 
+    int count_c = 0;
 
-    // end state
+    // create temp link, temp file
+    if(log_err_info(create_a_temp_file(&s_temp_link, MAX_LINK_LENGTH)))
+    {
+        return STATE_END;
+    }
+
+    // open temp file
+    // open input file
+    if(log_err_info(open_file_rw_mode_stream(s_temp_link, &temp_fp)))
+    {
+        return STATE_END;
+    }
+    
+    if(log_err_info(open_file_rw_mode_stream(s_input_link, &input_fp)))
+    {
+        return STATE_END;
+    }
+
+    // read by block temp stream
+    if(log_err_info(set_full_buffer_stream(temp_fp)))
+    {
+        return STATE_END;
+    }
+
+    // count number ASCII finded
+    rewind(input_fp);
+    {
+        int c = fgetc(input_fp);
+        while(c != EOF)
+        {
+            if(c == ASCII_chosen)
+            {
+                count_c ++;
+            }
+            c = fgetc(input_fp);
+        }
+    }
+    print_something_then_input("Number counted:");
+    fprintf(stderr, "[%d] = %d\nDeleting...\n", ASCII_chosen ,count_c);
+
+    // push by block
+    rewind(input_fp);
+    if(count_c >0)
+    {
+        int c = fgetc(input_fp);
+        while(c != EOF)
+        {
+            if(c == ASCII_chosen)
+            {
+                // ignore chosen ASCII
+            }
+            // else push to buffer
+            else
+            {
+                fputc(c, temp_fp);
+            }
+            // continue
+            c = fgetc(input_fp);
+        }
+    }
+
+    // close 2 stream
+    if(log_err_info(close_file_stream(&temp_fp)))
+    {
+        return STATE_END;
+    }
+
+    if(log_err_info(close_file_stream(&input_fp)))
+    {
+        return STATE_END;
+    }
+
+    // delete file state
+    // compare if count > 0 => delete input file => swap name file => temp file = NULL
+    // if count = 0 => delete temp file => temp file = NULL
+
+    //
+    if(count_c > 0)// swap file and delete temp file
+    {
+        // delete input file
+        if(log_err_info(delete_a_temp_file(s_input_link)))
+        {
+            return STATE_END;
+        }
+
+        // swap name: temp -> input
+        if(log_err_info(rename_a_temp_file(s_input_link, s_temp_link)))
+        {
+            return STATE_END;
+        }
+        
+        // rename: input -> temp
+        memset(s_input_link, 0, MAX_LINK_LENGTH);
+        strcat(s_input_link, s_temp_link);
+
+        // temp file = NULL
+        free(s_temp_link);
+        s_temp_link = NULL;
+    }
+    else// delete temp file
+    {
+        // delete temp file
+        if(log_err_info(delete_a_temp_file(s_temp_link)))
+        {
+            return STATE_END;
+        }
+
+        // temp file = NULL
+        free(s_temp_link);
+        s_temp_link = NULL;
+    }
+
+    // continue ? -> return pre state or end state
+    {
+        int c;
+        do
+        {
+            
+            print_something_then_input("Continue delete others ASCII (y/n)");
+            c = getchar();
+        } while (c != 'y' && c != 'Y' && c != 'N' && c != 'n');
+        fgetc(stdin);
+
+        if(c == 'N' || c == 'n')
+        {
+            return STATE_END;
+        }
+
+        if(c == 'Y' || c == 'y')
+        {
+            return STATE_CHOOSE_CHARACTER_TO_DELETE;
+        }
+    }
+
+    // exit
     return STATE_END;
 }
 
@@ -318,6 +457,7 @@ int driver_remove_ASCII(char* input_link)
                     free(s_input_link);
                     s_input_link = NULL;
                 }
+
                 if(s_temp_link != NULL)
                 {
                     free(s_temp_link);

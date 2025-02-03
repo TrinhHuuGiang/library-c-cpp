@@ -18,8 +18,9 @@
     - perpose: create new temp file, then delete it when end 'fclose()' or end program.   
     - syntax: `FILE* tmpfile(void);`  
     - return: NULL if failed, !NULL if success.  
-- tmpnam  
-    - perpose: create new tempfile, file will not deleted. Call 'remove()' to delete.  
+- tempnam
+    - note that this function only create file name unique, but not create file.  
+    - perpose: create new tempfile name. 
     - syntax: `char* tempnam(const char *__dir, const char *__pfx);`  
     - return: 
         - if `__dir`, `__pfx` pointer is `NULL`, default an internal buffer will allocated.  
@@ -54,6 +55,7 @@
   - perpose: Specifies an array `buffer` for stream. The function allows to specify the mode and size of the buffer (in bytes).  
   - This function should be called once the stream has been associated with an open file, but before any input or output operation is performed with it.  
   - syntax: `int setvbuf ( FILE * stream, char * buffer, int mode, size_t size );`  
+  - buffer: input 'NULL' if you want system auto manage buffer.
   - mode: Specifies a mode for file buffering. Three special macro constants (_IOFBF, _IOLBF and _IONBF) are defined. Read here: https://cplusplus.com/reference/cstdio/setvbuf/  
   - return: 0 if succes, !0 if failed
 

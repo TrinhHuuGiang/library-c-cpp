@@ -26,6 +26,8 @@ int main(int argc, char* argv[])
 {
     if(argc <= 1)
     {
+        fprintf(stderr,"\n INPUT NOTHING \n");
+        fprintf(stderr,"Syntax: ./run_app.out [link to text file]\n");
         return 1;
     }
 
@@ -39,5 +41,6 @@ int main(int argc, char* argv[])
     }
 
     // anything ok
+    fprintf(stderr,"\n EXIT OKEY \n");
     return 0;    
 }

@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
     char* temp_name = NULL;
     FILE* temp_ptr = NULL; 
 
-    // [ tmpname ]
+    // [ tempnam ]
     temp_name = tempnam("./temp/", "tem_");
     if(!temp_name)
     {
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     // check file name
     cout<<"New temp file: \""<<temp_name<<"\""<<endl;
     
-    // write something into file, otherwise file auto delete by operating system
+    // write something into file to create.
     temp_ptr = fopen(temp_name, "a+");
     if(!temp_ptr)
     {

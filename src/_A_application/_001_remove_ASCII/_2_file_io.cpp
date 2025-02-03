@@ -57,3 +57,16 @@ ret_file_io close_file_stream(FILE** file_ptr_p)
     // ok
     return iofile_OK;
 }
+
+// set full buffer mode
+ret_file_io set_full_buffer_stream(FILE* file_p)
+{
+    // setvbuf return 0 if success
+    if(setvbuf(file_p,NULL, _IOFBF, PAGE_SIZE_BUFFER))
+    {
+        return iofile_FAILED_ALLOC_BUFFER;
+    }
+
+    //exit
+    return iofile_OK;
+}

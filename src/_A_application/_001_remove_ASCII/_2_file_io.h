@@ -34,10 +34,8 @@ ret_file_io close_file_stream(FILE** file_ptr_p);
  * Sure that write operation is minimal for disk for extend hard drive life
  * 
  * PAGE_SIZE_BUFFER will be default size for buffer
- * @param file_ptr_p a pointer to file pointer, sure that after call function the FILE* point to NULL
+ * @param file_p a pointer to file pointer, sure that after call function the FILE* point to NULL
  */
-ret_file_io set_full_buffer_stream();
-
-ret_file_io flush_buffer_stream();
+ret_file_io set_full_buffer_stream(FILE* file_p);
 
 #endif /* _FILE_IO_H_ */
