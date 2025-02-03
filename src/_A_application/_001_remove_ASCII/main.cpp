@@ -1,5 +1,8 @@
 /*
-Remove ASCII: A program to monitor ASCII characters in a text file.
+Remove ASCII:
+- A program to monitor ASCII characters in a text file.
+- Remove some ASCII characters user input.
+
 Copyright (C) 2025  Giang Trinh.
 
 This program is free software: you can redistribute it and/or modify
