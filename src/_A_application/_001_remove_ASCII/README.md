@@ -1,4 +1,20 @@
 ### BUILD:
 - in this folder, run command:  
-`g++ -std=c++0x -o ./build/run_app.out main.cpp main_state.cpp _0_error_code.cpp _1_temp_file.cpp _2_file_io.cpp`  
-- go to `build` => run `run_app.out`  
+    - `chmod +x Auto_build.sh`
+    - `./Auto_build.sh`
+<hr>
+
+### Compiled programs
+- go to `build`  
+<hr>
+
+### Fuction call:
+- ./ascii_remove.out [link to text file]  
+=> `Remove` all input characters you entered
+
+- ./ascii_to_space.out [link to text file]  
+=> `Convert` all input characters to `" "`.
+
+### Code
+- Note:
+    - the code of `ascii_to_space` only edit a bit of code logic from  `ascii_remove`  

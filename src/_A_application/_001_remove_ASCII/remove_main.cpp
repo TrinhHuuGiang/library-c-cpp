@@ -1,7 +1,14 @@
 /*
-Remove ASCII:
+Remove ASCII program:
 - A program to monitor ASCII characters in a text file.
-- Remove some ASCII characters user input.
+- Remove input characters
+
+Fuction call:
+- ascii_remove [link to text file]
+=> Remove all input characters you entered
+
+- ascii_to_space [link to text file]
+=> Convert all input characters to " " 
 
 Copyright (C) 2025  Giang Trinh.
 
@@ -22,7 +29,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 /***************************************
 Definitions
 ***************************************/
-#include "main_state.h"
+#include "remove_state.h"
 
 /***************************************
 Code

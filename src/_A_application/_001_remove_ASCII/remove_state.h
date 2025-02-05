@@ -16,16 +16,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef _MAIN_STATE_H_
-#define _MAIN_STATE_H_
+#ifndef _REMOVE_STATE_H_
+#define _REMOVE_STATE_H_
 /***************************************
 * Definitions
 ***************************************/
 // self define
-#include "_0_error_code.h"
+#include "libs/_0_error_code.h"
 
-#include "_1_temp_file.h"
-#include "_2_file_io.h"
+#include "libs/_1_temp_file.h"
+#include "libs/_2_file_io.h"
 
 #define MAX_LINK_LENGTH (256)
 #define MAX_LINK_LENGTH_s "255"
@@ -63,4 +63,4 @@ typedef enum
  */
 int driver_remove_ASCII(char* input_link);
 
-#endif /* _MAIN_STATE_H_ */
+#endif /* _REMOVE_STATE_H_ */

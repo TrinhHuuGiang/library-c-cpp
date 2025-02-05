@@ -1,5 +1,5 @@
 /*
-State machine for Remove ASCII program
+State machine for Convert ASCII to space program
 Copyright (C) 2025  Giang Trinh.
 
 This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 /***************************************
 Definitions
 ***************************************/
-#include "main_state.h"
+#include "c_space_state.h"
 
 /***************************************
 Prototypes
@@ -47,11 +47,11 @@ static State_next Count_ASCII_character();
 static State_next Choose_ASCII_to_delete();
 
 /**
- * @brief Delete the ASCII character was chosen 
+ * @brief Convert the ASCII character was chosen to space
  * 
  * @return Next state
  */
-static State_next Delete_ASCII_chosen();
+static State_next Convert_ASCII_chosen_to_space();
 
 /***************************************
 Variable
@@ -301,8 +301,8 @@ static State_next Choose_ASCII_to_delete()
     return STATE_DELETE_CHARACTER;
 }
 
-// Delete the ASCII was chosen
-static State_next Delete_ASCII_chosen()
+// Convert the ASCII was chosen
+static State_next Convert_ASCII_chosen_to_space()
 {
     FILE* input_fp = NULL;
     FILE* temp_fp = NULL;
@@ -347,7 +347,7 @@ static State_next Delete_ASCII_chosen()
         }
     }
     print_something_then_input("Number counted:");
-    fprintf(stderr, "[%d] = %d\nDeleting...\n", ASCII_chosen ,count_c);
+    fprintf(stderr, "[%d] = %d\nConverting...\n", ASCII_chosen ,count_c);
 
     // push by block
     rewind(input_fp);
@@ -358,7 +358,8 @@ static State_next Delete_ASCII_chosen()
         {
             if(c == ASCII_chosen)
             {
-                // ignore chosen ASCII
+                // convert chosen ASCII to space
+                fputc((int)' ', temp_fp);
             }
             // else push to buffer
             else
@@ -427,7 +428,7 @@ static State_next Delete_ASCII_chosen()
         do
         {
             
-            print_something_then_input("Continue delete others ASCII (y/n)");
+            print_something_then_input("Continue others ASCII (y/n)");
             c = getchar();
         } while (c != 'y' && c != 'Y' && c != 'N' && c != 'n');
         fgetc(stdin);
@@ -470,7 +471,7 @@ int driver_remove_ASCII(char* input_link)
                 break;
 
             case STATE_DELETE_CHARACTER:
-                s_state_next = Delete_ASCII_chosen();
+                s_state_next = Convert_ASCII_chosen_to_space();
                 break;
 
             case STATE_END:
