@@ -45,4 +45,4 @@ Some general perposes:
     - memset: `void * memset ( void * ptr, int value, size_t num );`
         - set `num` bytes of string to `value`
     - count: `size_t strlen ( const char * str );`
-        - return length of string ifnore `\0`
+        - return length of string ignore `\0`

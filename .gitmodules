@@ -1,0 +1,3 @@
+[submodule "src/_4_Threading"]
+	path = src/_4_Threading
+	url = https://github.com/TrinhHuuGiang/exercise-c-cpp-operating-system.git
