@@ -1,5 +1,5 @@
 # library-c-cpp
-Get familiar with the libraries available at [cplusplus.com](https://cplusplus.com/)
-
+- C/C++ libraries available at [cplusplus.com](https://cplusplus.com/)
+- [Network Programming](https://beej.us/guide/bgnet/)
 # Applications
 - [Remove ASCII](src/_A_application/_001_remove_ASCII/)  
