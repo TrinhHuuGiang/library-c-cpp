@@ -5,6 +5,7 @@
 - `getaddrinfo()`
     - [syntax](#syntax)
     - [parameter](#parameters)
+    - [error code](#error-code)
 - `struct addrinfo`
     - [template](#template)
     - [member](#struct-member)
@@ -14,6 +15,9 @@
 ## getaddrinfo
 ### Syntax: 
 ```cpp
+#include <sys/socket.h>
+#include <netdb.h>
+
 int getaddrinfo(const char *restrict node,
                        const char *restrict service,
                        const struct addrinfo *restrict hints,
@@ -37,6 +41,11 @@ int getaddrinfo(const char *restrict node,
 - `struct addrinfo** res`
     - A pointer to a struct addrinfo* that will be filled with a linked list of results.
     - The caller is responsible for freeing the list using `freeaddrinfo()`.
+
+### error code
+- `0` if success
+- if `!0` => error => using `gai_strerror()` to get log string:
+    - Ex: fprintf(stderr, "getaddrinfo failed: %s\n", gai_strerror(status));
 
 ## struct addrinfo
 ### template:
@@ -81,7 +90,7 @@ int getaddrinfo(const char *restrict node,
 
 - `ai_protocol`: 
     - Specifies the protocol used.
-    - Common values:
+    - Common values: more macro in <netinet/in.h>
         - `IPPROTO_TCP`
         - `IPPROTO_UDP`
         - `0` for automatic selection

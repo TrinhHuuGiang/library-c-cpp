@@ -54,6 +54,7 @@ A socket descriptor (`sockfd`) is an integer that represents a network connectio
 ### Closing a Connection
 - `close()`: Closes the socket completely.
 - `shutdown()`: Partially or fully shuts down communication on a socket.
+    - [->more](./_0001_get_address_inform.md)
 
 ## 6. Additional Utility Functions
 - `getpeername()`: Gets the IP and port of the remote peer connected to the socket.
