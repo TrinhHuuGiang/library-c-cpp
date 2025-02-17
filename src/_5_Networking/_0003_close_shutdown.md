@@ -1,3 +1,4 @@
+
 # References:
 - [man page: close()](https://man7.org/linux/man-pages/man2/close.2.html)
 - [man page: shutdown()](https://man7.org/linux/man-pages/man2/shutdown.2.html)
@@ -23,14 +24,14 @@ int close(int sockfd);
 ```
 
 ### Description:
-- `close()` đóng một socket hoặc một file descriptor bất kỳ.
-- Khi đóng một socket:
-  - Nếu có dữ liệu chưa gửi, hệ thống có thể tiếp tục gửi trước khi thực sự đóng.
-  - Đối với TCP, đóng socket sẽ gửi gói `FIN`, báo hiệu kết thúc kết nối.
+- `close()` closes a socket or any file descriptor.
+- When closing a socket:
+  - If there is data not yet sent, the system may continue sending before actually closing.
+  - For TCP, closing the socket sends a `FIN` packet, signaling the end of the connection.
 
 ### Return Value:
-- Trả về `0` nếu thành công.
-- Trả về `-1` nếu có lỗi, và `errno` sẽ được thiết lập để mô tả lỗi.
+- Returns `0` on success.
+- Returns `-1` on failure, and `errno` will be set to describe the error.
 
 ### Example:
 ```cpp
@@ -62,20 +63,20 @@ int shutdown(int sockfd, int how);
 ```
 
 ### Description:
-- `shutdown()` chỉ đóng một phần của kết nối TCP.
-- Không giống `close()`, `shutdown()` có thể:
-  - Ngăn gửi dữ liệu (`SHUT_WR`).
-  - Ngăn nhận dữ liệu (`SHUT_RD`).
-  - Ngăn cả hai (`SHUT_RDWR`).
+- `shutdown()` only closes part of the TCP connection.
+- Unlike `close()`, `shutdown()` can:
+  - Stop sending data (`SHUT_WR`).
+  - Stop receiving data (`SHUT_RD`).
+  - Stop both sending and receiving data (`SHUT_RDWR`).
 
 ### Shutdown Modes:
-- `SHUT_RD` (0): Không nhận thêm dữ liệu.
-- `SHUT_WR` (1): Không gửi thêm dữ liệu.
-- `SHUT_RDWR` (2): Không gửi và không nhận dữ liệu.
+- `SHUT_RD` (0): No more data can be received.
+- `SHUT_WR` (1): No more data can be sent.
+- `SHUT_RDWR` (2): No more data can be sent or received.
 
 ### Return Value:
-- Trả về `0` nếu thành công.
-- Trả về `-1` nếu có lỗi, và `errno` sẽ được thiết lập để mô tả lỗi.
+- Returns `0` on success.
+- Returns `-1` on failure, and `errno` will be set to describe the error.
 
 ### Example:
 ```cpp
@@ -92,7 +93,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
     
-    // Ngừng gửi dữ liệu nhưng vẫn có thể nhận
+    // Stop sending data but still receive
     if (shutdown(sockfd, SHUT_WR) == -1) {
         perror("shutdown failed");
     }
@@ -101,4 +102,3 @@ int main() {
     return 0;
 }
 ```
-
