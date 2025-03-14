@@ -81,6 +81,12 @@
 
 
 3. Format I/O
+-  Note:
+  - functions have prefix (f-) like: fprintf, fscanf, ... using i/o with stream, which get data bytes input after format (UTF8, UTF16, ..., binary) from key board or stream and redirect to another stream.
+    - These functions are suitable for handling file reading and writing, and display processing.
+  - functions have prefix (f-) like: sprintf, sscanf,... using i/o with buffer (string, array, buffer), which get data bytes input after format (UTF8, UTF16, ..., binary) from key board or stream and redirect to another buffer.
+    - These functions are suitable for handling buffer data on RAM.
+
 4. I/O with stream
 5. I/O block data
 6. File position
