@@ -4,6 +4,7 @@
 
 # Content
 - Common problems:
+    - [Manage life cycle]()
     - [Dynamic allocation](#dynamic-allocation)
     - [static in class](#static-in-class)
     - [template](#template)
@@ -17,6 +18,18 @@
     - [Abstraction](#abstraction)
 
 ## Problems
+### Manage variable `life cycle`
+- Different mechanism:
+    - `C`:
+        + The compiler simply creates stack space for any `variable` or `function pointer`
+        + When a `variable` goes out of scope, its memory is `automatically freed`.
+        + Jumping with `goto` is generally allowed—even over variable declarations—because C does not have constructors or destructors that need to be called explicitly.
+    - `C++`:
+        + C++ introduces `constructors` and `destructors` for objects.
+        + When a variable like `int a = 10;` or an object like `MyClass obj;` is declared, the compiler inserts code to `construct` and `destruct` that object.
+        + If you use goto to jump over such a declaration, C++ cannot guarantee the constructor ran—yet the destructor might still be called later, leading to undefined behavior.
+        + Therefore, C++ forbids jumping over variable.
+
 ### Using `new/delete` instead of `calloc/free`
 1. `calloc/free` need `#define <stdlib.h>`
 2. `calloc/free` only allocate new memory for `class` and never auto call `initial function`. 
