@@ -2,7 +2,7 @@
 
 
 
-Virtual Functions in C++
+# Virtual Functions in C++
 
 1. Purpose of `virtual`:
 - Used in inheritance to enable runtime polymorphism.
@@ -24,9 +24,32 @@ public:
 
 5. Polymorphism:
 - Achieved using virtual functions.
-- Allows code to work on base class interface while behaving according to derived class type.
+- Allows code to `work on base class` interface `while` behaving `according to derived class type`.
+- Example:
+    - We something declare lots of virtual `method` in `base class` then define what `method` do in `derived class`, it help 1 function can dynamicaly in runtime.
+    ``` cpp
+    #include <iostream>
+    using namespace std;
 
-6. Destructor (`~`) as virtual:
+    class Base {
+    public:
+        virtual void speak() { cout << "Base speaking\n"; }
+    };
+
+    class Derived : public Base {
+    public:
+        void speak() override { cout << "Derived speaking\n"; }
+    };
+
+    int main() {
+        Base* obj = new Derived();
+        obj->speak();  // Output: "Derived speaking"
+        delete obj;
+    }
+
+    ```
+
+6. Destructor (`~`) as `virtual`:
 - If deleting derived object through base class pointer, destructor must be virtual.
 - Prevents memory/resource leaks.
 
