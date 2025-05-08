@@ -19,7 +19,7 @@ class class_name {
 ```
 
 - A class has three types of access specifiers: private, public, and protected.  
-    - `private` members of a class are accessible only from within other members of the same class (or from their "friends").  
+    - `private` members of a class are accessible only from within other members of the same class (or from their "friends") and can't inherit.  
     - `protected` members are accessible from other members of the same class (or from their "friends"), but also from members of their derived/inherited classes.  
     - Finally, `public` members are accessible from anywhere where the object is visible.  
     ```Cpp

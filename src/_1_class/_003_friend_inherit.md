@@ -53,10 +53,13 @@
     ```
 <hr>
 
-# Inheritance class
+# Inheritance class (Chỉ áp dụng lên public và protected)
+- **Lưu ý:** Các thành viên `private` trong lớp cha `không bao giờ có mặt trong lớp con`. Lớp con không thể truy cập trực tiếp vào các thành viên private của lớp cha, dù cho kiểu kế thừa có là gì đi nữa.
+
 - `Public inheritance`: Các thành viên `public` và `protected` của lớp `cha` sẽ được giữ nguyên quyền truy cập trong lớp con. Lớp con có thể truy cập các thành viên này.  
 - `Protected inheritance`: Các thành viên `public` và `protected` của lớp `cha` sẽ trở thành `protected` trong lớp con. Các thành viên này sẽ không thể truy cập từ bên ngoài lớp con, nhưng vẫn có thể truy cập trong lớp con và các lớp con của nó.  
-- `Private inheritance`: Các thành viên `public` và `protected` của lớp `cha` sẽ trở thành `private` trong lớp con, và không thể truy cập từ bên ngoài lớp con.  
+- `Private inheritance`: Các thành viên `public` và `protected` của lớp `cha` sẽ trở thành `private` trong lớp con, và không thể truy cập từ bên ngoài lớp con.
+
 
 - Cú pháp:  
     ```Cpp
