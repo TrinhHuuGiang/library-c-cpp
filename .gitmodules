@@ -1,3 +1,6 @@
 [submodule "src/_4_Threading"]
 	path = src/_4_Threading
 	url = https://github.com/TrinhHuuGiang/exercise-c-cpp-operating-system.git
+[submodule "src/_6_Qt_app"]
+	path = src/_6_Qt_app
+	url = https://github.com/TrinhHuuGiang/tutorial-cpp-qt.git
