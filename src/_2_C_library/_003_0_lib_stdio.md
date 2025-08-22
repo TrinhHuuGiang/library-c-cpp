@@ -10,9 +10,65 @@
   1. stdin  - Standard input stream (usually the keyboard).
   2. stdout - Standard output stream (usually the screen or a file).
   3. stderr - Standard error stream (usually the screen for error messages).
+
+- Handle special input string:
+  1. Get full line input:
+    ```c
+    char s[256];
+    int count;
+
+
+    // [Worst choidce]
+    // get until '\n', and clear \n
+    // - return: number success read, or EOF(-1) if fail
+    // - check true/false: feof(FILE*), ferror(FILE*), clearerr(FILE*)
+    // - Note: alway clear flag err and eof by clearerr before test
+
+    // - disadvantage: overflow buffer `s[]`
+    // - advantage: read until `\n`
+    count = fscanf( FILE* stream , "%[^\n] %*c", s);
+
+    // [Best choice]
+    // get string until \n or limit input
+    // - return: NULL if get EOF or error, else return fointer to buffer
+    // - check: feof, ferror 
+    // - Note: alway clear flag err and eof by clearerr before test
+    // - disadvantage: maybe not read full line because full buffer
+    // - advantage: check `feof`
+    char* ret_buf = fgets(char* buf, int limit_input_num, FILE* stream);
+    ```
+  2. Get data by format:
+    ```c
+    int count = fscanf(FILE * stream, const char * format, ... )
+    ``` 
+    - Here is some example format, `' '` help ignore white space :
+      1. input 1 word, 1 char, 1 int 
+        ```c
+        char a[10], char b; int c;
+
+        fscanf(stream, "%s %c %d", a, &b, &c)
+        ```
+      2. input 1 MAC address add to array[6]:
+        ```c
+        unsigned char a[6];
+        const char *mac_str = 
+        " A4  : CF   :12: 34:56  :  78 ";
+
+        if (sscanf(mac_str, " %2hhx : %2hhx : %2hhx : %2hhx : %2hhx : %2hhx ",
+                &a[0], &a[1], &a[2], &a[3], &a[4], &a[5]) == 6) 
+        {
+            printf("Parsed MAC: %02X:%02X:%02X:%02X:%02X:%02X\n",
+                a[0], a[1], a[2], a[3], a[4], a[5]);
+        } 
+        else 
+        {
+            printf("Parse error!\n");
+        }
+        ```
+
 <hr>
 
-## Funtions
+## Functions
 1. File handling  
 - tmpfile  
     - perpose: create new temp file, then delete it when end 'fclose()' or end program.   
