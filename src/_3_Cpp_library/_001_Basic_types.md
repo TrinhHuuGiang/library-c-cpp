@@ -8,13 +8,45 @@
 ### Topic 
 - [Basic data types]()
 - [Vector|Variable size array]
-  - 
+  - Include `vector`
 - [String| a class about string](#string)
   - Include `string`
 - [Stringstream| Help parse string to number, char, string ... or reverse write multiple type to a string](#stringstream)
   - Include `sstream` 
 
 
+---
+
+#### Vector
+- Vector is data structure quite similar with array but the size can change by dynamic allocate memory.
+  - Disadvantage is time consuming when append new value to Vector array at time it full, reallocate and copy old array to new one is slower then other structure like `list` (linked list).
+    - So the size of Vector table sometime larger than necessary for reserve
+  - Advantage the time access to value is O(n) like `array` because using `index`
+  - `Iterator` and `Reverse iterator` are special pointer (pseudo pointer) design for several container in C++ include `vector`
+    - `.begin()` return iterator point to beginning
+    - `.end()` return iterator point pass to end
+      - that mean C++ design range for inter is : `[ begin element, end element +1]`
+      - and special when `empty vector`, `.end()` have the same point to `.begin()`
+        ```cpp
+          vector<int>::iterator it = vector_X.begin();
+          for(it; it != vector_X.end(); it++)
+          { 
+            // do something with current vector element by *it   
+          }
+        ```
+    - `.rbegin()` and `.rend()` support reverse return value point `end element and begin element` using for convenience reverse browse vector.
+
+    - Vector still using index like array to access value but iterator is more flexible, it still exist in other container like `list`
+  - Method clear vector to empty `.clear()` auto call destructor for elemet
+    - Note that element `pointer` do not has a destructor so must browse and delete by hand before `.clear()` else leak memory.
+    - `.shrink_to_fit()` method should use to mimimize vector after `clear` for save memory
+
+  - some method operate data on vector:
+    - fast handle `pushback`, `popback`
+    - handle by `iterator` not use reverse iterator: `insert`, `erase`
+      - note the iterator do not point out of range `[begin, end)`
+      - note erase by parameter a range `[a,b)`
+- Some common method: [see example](./_001_vector_example.cpp)
 
 ---
 
