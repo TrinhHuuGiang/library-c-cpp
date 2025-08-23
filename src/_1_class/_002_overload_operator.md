@@ -29,3 +29,4 @@ The purpose of operator overload is to make objects from either `struct` or `cla
 
     - with `(TYPE)a` is casting expreassion alway return TYPE, other overload return `ret_type`
     - `a(a,b,...)` function operator, `a->b` point operator, `(TYPE)a` alway need a base object `a`, it bind and handle by `this` of `a` so they can't be `non-member`.
+    - when an operator declare as non-member function, they only access private member if declare is [friend](./_003_friend_inherit.md)
